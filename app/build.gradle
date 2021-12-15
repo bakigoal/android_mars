@@ -55,18 +55,6 @@ dependencies {
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
-
-    // Retrofit - Deprecated plugins - No more required
-    // implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
-    // implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
-
-    // Coroutines - Deprecated - No more required
-    // implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
-    // implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
-
-    // Retrofit Coroutines Support - Deprecated - No more required
-    // implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
-
     // Retrofit with Moshi Converter
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 
