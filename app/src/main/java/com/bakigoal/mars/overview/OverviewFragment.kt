@@ -15,7 +15,7 @@ class OverviewFragment : Fragment() {
     /**
      * Lazily initialize our [OverviewViewModel].
      */
-    private val viewModel: OverviewViewModel by lazy { ViewModelProvider(this)[OverviewViewModel::class.java] }
+    private val viewModel by lazy { ViewModelProvider(this)[OverviewViewModel::class.java] }
 
     /**
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
