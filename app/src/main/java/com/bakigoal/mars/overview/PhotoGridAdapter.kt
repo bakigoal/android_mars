@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bakigoal.mars.databinding.GridViewItemBinding
 import com.bakigoal.mars.network.MarsProperty
 
-class PhotoGridAdapter :
+class PhotoGridAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<MarsProperty>() {
@@ -30,11 +30,17 @@ class PhotoGridAdapter :
         }
     }
 
+    class OnClickListener(private val clickListener: (marsProperty: MarsProperty) -> Unit) {
+        fun onClick(marsProperty: MarsProperty) = clickListener.invoke(marsProperty)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarsPropertyViewHolder {
         return MarsPropertyViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val marsProperty = getItem(position)
+        holder.itemView.setOnClickListener { onClickListener.onClick(marsProperty) }
+        holder.bind(marsProperty)
     }
 }

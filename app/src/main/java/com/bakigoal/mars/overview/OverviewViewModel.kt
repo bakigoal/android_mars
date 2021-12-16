@@ -19,11 +19,14 @@ class OverviewViewModel : ViewModel() {
 
     private val _status = MutableLiveData(MarsApiStatus.LOADING)
     private val _properties = MutableLiveData<List<MarsProperty>>()
+    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
 
     val status: LiveData<MarsApiStatus>
         get() = _status
     val properties: LiveData<List<MarsProperty>>
         get() = _properties
+    val navigateToSelectedProperty: LiveData<MarsProperty>
+        get() = _navigateToSelectedProperty
 
     init {
         getMarsRealEstateProperties()
@@ -47,5 +50,13 @@ class OverviewViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun displayPropertyDetails(property: MarsProperty) {
+        _navigateToSelectedProperty.value = property
+    }
+
+    fun navigateToSelectedPropertyComplete() {
+        _navigateToSelectedProperty.value = null
     }
 }

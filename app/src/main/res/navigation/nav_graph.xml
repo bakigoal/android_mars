@@ -21,6 +21,9 @@
         android:name="com.bakigoal.mars.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="selected"
+            app:argType="com.bakigoal.mars.network.MarsProperty" />
     </fragment>
 
 </navigation>
