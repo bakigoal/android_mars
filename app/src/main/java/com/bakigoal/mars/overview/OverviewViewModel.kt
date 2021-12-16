@@ -13,12 +13,12 @@ class OverviewViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     private val _status = MutableLiveData<String>()
-    private val _property = MutableLiveData<MarsProperty>()
+    private val _properties = MutableLiveData<List<MarsProperty>>()
 
     val status: LiveData<String>
         get() = _status
-    val property: LiveData<MarsProperty>
-        get() = _property
+    val properties: LiveData<List<MarsProperty>>
+        get() = _properties
 
     init {
         getMarsRealEstateProperties()
@@ -30,7 +30,7 @@ class OverviewViewModel : ViewModel() {
             try {
                 val listResult = propertiesDeferred.await()
                 if (listResult.isNotEmpty()) {
-                    _property.value = listResult[0]
+                    _properties.value = listResult
                 }
             } catch (t: Throwable) {
                 _status.value = t.message

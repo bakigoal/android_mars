@@ -52,9 +52,6 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
 
-    // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
-
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
@@ -70,6 +67,9 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$version_glide"
+
+    // RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
     // Testing
     testImplementation "junit:junit:4.13.2"
