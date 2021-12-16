@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bakigoal.mars.R
 import com.bakigoal.mars.databinding.FragmentOverviewBinding
+import com.bakigoal.mars.network.MarsApiFilter
 
 /**
  * This fragment shows the the status of the Mars real-estate web services transaction.
@@ -56,5 +57,15 @@ class OverviewFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.show_all_menu -> viewModel.updateFilter(MarsApiFilter.SHOW_ALL)
+            R.id.show_buy_menu -> viewModel.updateFilter(MarsApiFilter.SHOW_BUY)
+            R.id.show_rent_menu -> viewModel.updateFilter(MarsApiFilter.SHOW_RENT)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

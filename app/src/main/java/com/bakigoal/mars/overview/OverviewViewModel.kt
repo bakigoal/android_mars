@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bakigoal.mars.network.MarsApi
+import com.bakigoal.mars.network.MarsApiFilter
 import com.bakigoal.mars.network.MarsProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,12 +30,12 @@ class OverviewViewModel : ViewModel() {
         get() = _navigateToSelectedProperty
 
     init {
-        getMarsRealEstateProperties()
+        getMarsRealEstateProperties(MarsApiFilter.SHOW_ALL)
     }
 
-    private fun getMarsRealEstateProperties() {
+    private fun getMarsRealEstateProperties(filter: MarsApiFilter) {
         coroutineScope.launch {
-            val propertiesDeferred = MarsApi.retrofitService.getPropertiesAsync()
+            val propertiesDeferred = MarsApi.retrofitService.getPropertiesAsync(filter.value)
             try {
                 _status.value = MarsApiStatus.LOADING
                 val listResult = propertiesDeferred.await()
@@ -58,5 +59,9 @@ class OverviewViewModel : ViewModel() {
 
     fun navigateToSelectedPropertyComplete() {
         _navigateToSelectedProperty.value = null
+    }
+
+    fun updateFilter(filter: MarsApiFilter) {
+        getMarsRealEstateProperties(filter)
     }
 }
