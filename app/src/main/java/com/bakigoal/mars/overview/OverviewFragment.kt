@@ -5,7 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bakigoal.mars.R
-import com.bakigoal.mars.databinding.FragmentOverviewBinding
+import com.bakigoal.mars.databinding.GridViewItemBinding
 
 /**
  * This fragment shows the the status of the Mars real-estate web services transaction.
@@ -22,7 +22,7 @@ class OverviewFragment : Fragment() {
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View {
-        val binding = FragmentOverviewBinding.inflate(inflater)
+        val binding = GridViewItemBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = viewLifecycleOwner
