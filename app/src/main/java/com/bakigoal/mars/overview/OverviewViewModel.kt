@@ -4,32 +4,35 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bakigoal.mars.network.MarsApi
-import com.bakigoal.mars.network.MarsProperty
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.*
 
 class OverviewViewModel : ViewModel() {
 
     private val _response = MutableLiveData<String>()
-
     val response: LiveData<String>
         get() = _response
+
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
         getMarsRealEstateProperties()
     }
 
     private fun getMarsRealEstateProperties() {
-        MarsApi.retrofitService.getProperties().enqueue(object : Callback<List<MarsProperty>> {
-
-            override fun onResponse(c: Call<List<MarsProperty>>, r: Response<List<MarsProperty>>) {
-                _response.value = "Success: ${r.body()?.size} retrieved"
-            }
-
-            override fun onFailure(call: Call<List<MarsProperty>>, t: Throwable) {
+        coroutineScope.launch {
+            val propertiesDeferred = MarsApi.retrofitService.getPropertiesAsync()
+            try {
+                val listResult = propertiesDeferred.await()
+                _response.value = "Success: ${listResult.size} retrieved"
+            } catch (t: Throwable) {
                 _response.value = t.message
             }
-        })
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }
