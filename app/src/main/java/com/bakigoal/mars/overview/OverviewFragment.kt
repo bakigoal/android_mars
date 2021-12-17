@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.bakigoal.mars.R
 import com.bakigoal.mars.databinding.FragmentOverviewBinding
 import com.bakigoal.mars.network.MarsApiFilter
+import com.bakigoal.mars.overview.PhotoGridAdapter.OnClickListener
 
 /**
  * This fragment shows the the status of the Mars real-estate web services transaction.
@@ -32,9 +33,7 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
-            viewModel.displayPropertyDetails(it)
-        })
+        binding.photosGrid.adapter = PhotoGridAdapter(OnClickListener(viewModel::displayPropertyDetails))
 
         observeViewModel()
 
