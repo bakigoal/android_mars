@@ -5,11 +5,10 @@ import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bakigoal.mars.network.MarsProperty
 import com.bakigoal.mars.overview.MarsApiStatus
 import com.bakigoal.mars.overview.PhotoGridAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 
 @BindingAdapter("listData")
@@ -19,23 +18,21 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarsProperty>?) {
 }
 
 @BindingAdapter("imageUrl")
-fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgUrl?.let {
+fun bindImage(imageView: ImageView, url: String?) {
+    url?.let {
         val imgUri = it.toUri().buildUpon().scheme("https").build()
-        Glide.with(imgView.context)
-            .load(imgUri)
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.ic_broken_image)
-            )
-            .into(imgView)
+        imageView.load(imgUri) {
+            placeholder(R.drawable.loading_animation)
+            error(R.drawable.ic_broken_image)
+            crossfade(true)
+            crossfade(500)
+        }
     }
 }
 
 @BindingAdapter("marsApiStatus")
-fun bindStatus( statusImageView:ImageView, status: MarsApiStatus) {
-    when(status) {
+fun bindStatus(statusImageView: ImageView, status: MarsApiStatus) {
+    when (status) {
         MarsApiStatus.LOADING -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.loading_animation)

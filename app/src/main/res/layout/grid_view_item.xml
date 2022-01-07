@@ -11,14 +11,20 @@
             type="com.bakigoal.mars.network.MarsProperty" />
     </data>
 
-    <ImageView
-        android:id="@+id/mars_image"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/main_photo_description"
-        android:padding="2dp"
-        android:scaleType="centerCrop"
-        app:imageUrl="@{property.imgSrcUrl}"
-        tools:src="@tools:sample/backgrounds/scenic" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp">
+
+        <ImageView
+            android:id="@+id/mars_image"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/main_photo_description"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{property.imgSrcUrl}"
+            tools:src="@tools:sample/backgrounds/scenic" />
+    </FrameLayout>
+
 </layout>
